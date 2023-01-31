@@ -6,6 +6,7 @@
 {% block content %}
 
 <h1 class="title pt-5">Polish Reviews & Swatches</h1>
+<a class="button is-dark" href="{% url 'create_review' %}">Add A Review!</a>
 <div class="gallery">
   {% for review in reviews %}
   <a href="">
