@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% comment %} for head title tags and helping us with SEO {% endcomment %}
+{% block title %}Polishes{% endblock  %}
+
+{% block content %}
+
+<h1 class="title pt-5">Popular Polishes</h1>
+<div class="gallery">
+  {% for polish in polishes %}
+  <a href="">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-square">
+          <img src="{{polish.image}}" alt="{{polish.name}}" />
+        </figure>
+      </div>
+      <div class="card-header">
+        <p class="card-header-title">{{polish.name}}</p>
+      </div>
+    </div>
+  </a>
+	{% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Polishes Available</p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
