@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% comment %} for head title tags and helping us with SEO {% endcomment %}
-{% block title %}Polishes{% endblock  %}
+{% block title %}{{brand.name}}{% endblock %}
 
 {% block content %}
 
-<h1 class="title pt-5">Popular Polishes</h1>
+<h1 class="title pt-5"> {{brand.name}} Polishes</h1>
 <div class="gallery">
-  {% for polish in polishes %}
+  {% for polish in brand.polishes.all %}
   <a href="{% url 'polish_reviews' polish.pk %}">
     <div class="card">
       <div class="card-image">

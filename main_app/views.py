@@ -32,6 +32,11 @@ class BrandList(TemplateView):
             context['header'] = 'Popular Brands'
         return context
 
+class BrandDetail(DetailView):
+    model = Brand
+    template_name = 'brand_detail.html'
+
+
 class PolishList(TemplateView):
     template_name = 'polish_list.html'
 
@@ -40,8 +45,9 @@ class PolishList(TemplateView):
         context['polishes'] = Polish.objects.all()
         return context
 
-# class PolishReviewsList(TemplateView):
-#     template_name='polish_review.html'
+class PolishReviews(DetailView):
+    model = Polish
+    template_name='polish_reviews.html'
 
 class ReviewList(TemplateView):
     template_name = 'review_list.html'

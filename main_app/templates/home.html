@@ -21,7 +21,7 @@ Home
 <h1 class="title pt-5">{{header}}:</h1>
 <div class="gallery">
   {% for brand in brands %}
-  <a href="">
+  <a href="{% url 'brand_detail' brand.pk %}">
     <div class="card">
       <div class="card-image">
         <!-- <figure class="image is-square">
