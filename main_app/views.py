@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse 
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .models import Brand, Polish, Review
 from django.urls import reverse
@@ -73,3 +73,8 @@ class UpdateReview(UpdateView):
 class ReviewDetail(DetailView):
     model = Review
     template_name='review_detail.html'
+
+
+class DeleteReview(DeleteView):
+    model = Review
+    template_name='delete_review_conf.html'
