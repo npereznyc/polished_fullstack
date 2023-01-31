@@ -2,8 +2,11 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse 
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.detail import DetailView
 from .models import Brand, Polish, Review
+from django.urls import reverse
+
 
 
 
@@ -53,3 +56,20 @@ class CreateReview(CreateView):
     fields = ['user', 'polish', 'brand', 'image', 'review']
     template_name = "create_review.html"
     success_url = "/reviews/"
+
+    def get_success_url(self):
+        return reverse('review_detail', kwargs={'pk': self.object.pk})
+
+class UpdateReview(UpdateView):
+    model = Review
+    fields = ['user', 'polish', 'brand', 'image', 'review']
+    template_name = "update_review.html"
+    success_url = "/reviews/"
+
+    def get_success_url(self):
+        return reverse('review_detail', kwargs={'pk': self.object.pk})
+
+
+class ReviewDetail(DetailView):
+    model = Review
+    template_name='review_detail.html'
