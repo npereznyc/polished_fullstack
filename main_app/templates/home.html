@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home{% endblock %}
+
 {% block content %}
 <form class="mb-5" method="get">
   <div class="field has-addons">
@@ -17,7 +16,7 @@ Home
   <a class="button is-dark" href="{% url 'home' %}">Clear Search</a>
 </form>
 
-<h5 class="title">Welcome to Polished! Search by polish name or brand above, or choose a brand below to begin exploring.</h5>
+<h5 class="title">Welcome to Polished! <br /> Search for a brand above, or choose a brand below to begin exploring.</h5>
 <h1 class="title pt-5">{{header}}:</h1>
 <div class="gallery">
   {% for brand in brands %}

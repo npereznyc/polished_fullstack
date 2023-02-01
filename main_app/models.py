@@ -37,4 +37,4 @@ class Review(models.Model):
         return self.review
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
