@@ -26,7 +26,7 @@ class Polish(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name='reviews')
     polish = models.ForeignKey(Polish, on_delete=models.PROTECT, related_name='reviews')
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT, related_name='reviews')
     image =  models.TextField()

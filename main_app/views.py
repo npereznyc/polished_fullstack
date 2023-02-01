@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views import View
+from django.views import View, generic
 from django.http import HttpResponse 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -11,6 +11,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 
 
@@ -73,6 +76,17 @@ class ReviewList(TemplateView):
         context['reviews'] = Review.objects.all()
         return context
 
+class UserReviews(LoginRequiredMixin,generic.ListView):
+    model = Review
+    template_name = 'user_reviews.html'
+
+    def get_queryset(self):
+        user_reviews=Review.objects.filter(user=self.request.user)
+        print('user reviews: ', user_reviews)
+        return Review.objects.filter(user=self.request.user)
+        
+
+
 @method_decorator(login_required, name='dispatch')
 class CreateReview(CreateView):
     model = Review
@@ -102,7 +116,7 @@ class UpdateReview(UpdateView):
 class ReviewDetail(DetailView):
     model = Review
     template_name='review_detail.html'
-    
+
 
 @method_decorator(login_required, name='dispatch')
 class DeleteReview(DeleteView):
