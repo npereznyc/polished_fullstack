@@ -10,14 +10,17 @@
   {% for polish in brand.polishes.all %}
   <a href="{% url 'polish_reviews' polish.pk %}">
     <div class="card">
+      <div class="card-header">
+        <p class="card-header-title">{{polish.name}}</p>
+      </div>
       <div class="card-image">
         <figure class="image is-square">
           <img src="{{polish.image}}" alt="{{polish.name}}" />
         </figure>
       </div>
-      <div class="card-header">
-        <p class="card-header-title">{{polish.name}}</p>
-      </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Save to Favorites</a>
+      </footer>
     </div>
   </a>
 	{% empty %}

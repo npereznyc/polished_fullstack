@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% comment %} for head title tags and helping us with SEO {% endcomment %}
-{% block title %}Polishes{% endblock  %}
+{% block title %}Polishes{% endblock %}
 
 {% block content %}
 
@@ -10,17 +10,21 @@
   {% for polish in polishes %}
   <a href="{% url 'polish_reviews' polish.pk %}">
     <div class="card">
+      <div class="card-header">
+        <p class="card-header-title">{{polish.name}} by {{polish.brand}}</p>
+      </div>
       <div class="card-image">
         <figure class="image is-square">
           <img src="{{polish.image}}" alt="{{polish.name}}" />
         </figure>
       </div>
-      <div class="card-header">
-        <p class="card-header-title">{{polish.name}}</p>
-      </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Save to Favorites</a>
+      </footer>
+
     </div>
   </a>
-	{% empty %}
+  {% empty %}
   <article class="message">
     <div class="message-header">
       <p>No Polishes Available</p>
