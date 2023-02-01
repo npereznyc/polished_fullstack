@@ -84,3 +84,4 @@ class ReviewDetail(DetailView):
 class DeleteReview(DeleteView):
     model = Review
     template_name='delete_review_conf.html'
+    success_url = "/"
