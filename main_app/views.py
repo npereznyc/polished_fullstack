@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View, generic
 from django.http import HttpResponse 
 from django.views.generic.base import TemplateView
@@ -10,10 +10,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
+import os
 
 
 

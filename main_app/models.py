@@ -38,3 +38,7 @@ class Review(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    
