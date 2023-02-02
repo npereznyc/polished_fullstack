@@ -10,6 +10,9 @@ django-cors-headers = "*"
 psycopg2-binary = "*"
 python-decouple = "*"
 boto3 = "*"
+django-heroku = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
