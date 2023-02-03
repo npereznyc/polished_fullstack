@@ -127,6 +127,7 @@ class DeleteReview(DeleteView):
 def add_photo(request):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
+    print('photo file: ', photo_file)
     if photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
@@ -136,10 +137,12 @@ def add_photo(request):
             bucket = os.environ['AWS_STORAGE_BUCKET_NAME']
             s3.upload_fileobj(photo_file, bucket, key)
             # build the full url string
-            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            image = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            url = f"{os.environ['BASE_URL']}/{key}"
+            print('url: ', url)
             # we can assign to cat_id or cat (if you have a cat object)
-            Review.objects.create(url=url, image=image)
+            # Review.objects.create(image=url)
+            Review(image=url).save()
+            return
         except:
             print('An error occurred uploading file to S3')
-    # return redirect('my_reviews')
+    return redirect('my_reviews')

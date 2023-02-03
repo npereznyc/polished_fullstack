@@ -4,6 +4,17 @@
 {% block content %}
 <h1>Add a Swatch & Review</h1>
 
+<form action="{% url 'add_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" class="btn" value="Upload Photo">
+    {{form.as_p}}
+
+    <input type="submit" value="Submit Review" />
+
+  </form>
+
 <form method="post">
   <!-- Security Feature  -->
   {% csrf_token %}
@@ -11,15 +22,11 @@
   {{form.as_p}}
   <p>Upload your swatch below:</p>
   <!--  Submit form  -->
-  <form action="{% url 'add_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-  </form>
+  
 
   <input type="submit" value="Submit Review" />
 </form>
+
 
 
 {% endblock %}
