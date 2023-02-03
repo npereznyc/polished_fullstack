@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 import os
+import uuid
+import boto3
 
 
 
@@ -88,7 +90,7 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
 @method_decorator(login_required, name='dispatch')
 class CreateReview(CreateView):
     model = Review
-    fields = ['user', 'polish', 'brand', 'image', 'review']
+    fields = ['polish', 'brand', 'review']
     template_name = "create_review.html"
     success_url = "/reviews/"
 
@@ -121,3 +123,23 @@ class DeleteReview(DeleteView):
     model = Review
     template_name='delete_review_conf.html'
     success_url = "/"
+
+def add_photo(request):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['AWS_STORAGE_BUCKET_NAME']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            image = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            Review.objects.create(url=url, image=image)
+        except:
+            print('An error occurred uploading file to S3')
+    # return redirect('my_reviews')
