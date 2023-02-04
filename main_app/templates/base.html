@@ -37,6 +37,7 @@
                 <span class="navbar-item">Welcome: {{user.username}}</span>
                 <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
                 <a class="navbar-item" href="{% url 'my_reviews' %}">My Reviews</a>
+                <a class="navbar-item" href="{% url 'favorites_list' %}">My Favorites</a>
             </div>
             {% else %}
             <div class="navbar-menu navbar-end">

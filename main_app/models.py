@@ -17,6 +17,8 @@ class Polish(models.Model):
     name = models.CharField(max_length=100)
     image = models.CharField(max_length=400, default="https://www.dictionary.com/e/wp-content/uploads/2018/02/nail-polish-light-skin-tone.png")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='polishes')
+    favorites = models.ManyToManyField(User, related_name='favorite', default=None, blank=True)
+
 
     def __str__(self):
         return self.name
@@ -43,3 +45,5 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for review_id: {self.review_id} @{self.url}"
+
+

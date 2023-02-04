@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View, generic
-from django.http import HttpResponse 
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -83,7 +83,7 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
     template_name = 'user_reviews.html'
 
     def get_queryset(self):
-        user_reviews=Review.objects.filter(user=self.request.user)
+        # user_reviews=Review.objects.filter(user=self.request.user)
         return Review.objects.filter(user=self.request.user)
         
 
@@ -152,3 +152,28 @@ def add_photo(request, review_id):
             print('An error occurred uploading file to S3')
     return redirect('my_reviews')
 
+@ login_required
+def add_favorite(request, id):
+    polish = get_object_or_404(Polish, id=id)
+    print('user: ', request.user.pk)
+    
+    if polish.favorites.filter(id=request.user.id).exists():
+        polish.favorites.remove(request.user.pk)
+        print('remove ', polish.favorites)
+    else:
+        polish.favorites.add(request.user.pk)
+        print('add: ', polish.favorites)
+    return redirect('favorites_list')
+    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+# class UserFavorites(LoginRequiredMixin,generic.ListView):
+#     model = Favorite
+#     template_name = 'user_favorites.html'
+
+#     def get_queryset(self):
+#         return Favorite.objects.filter(user=self.request.user)
+
+@login_required
+def favorites_list(request):
+    favorite=Polish.objects.filter(favorites=request.user.pk)
+    return render(request, 'user_favorites.html', {'favorite' : favorite})
