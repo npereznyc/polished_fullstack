@@ -16,7 +16,11 @@
             </div>
             <div class="card-image">
                 <figure class="image is-square">
-                    <img src="{{review.image}}" alt="{{review.polish}}" />
+                    {% for photo in review.photo_set.all %}
+                    <img src="{{photo.url}}" alt="{{photo.review}}" />
+                    {% empty %}
+                    <div>No Photos Uploaded</div>
+                    {% endfor %}
                 </figure>
             </div>
             <div class="card-content">
@@ -32,7 +36,7 @@
     {% empty %}
     <article class="message">
         <div class="message-header">
-            <p>No Reviews Available</p>
+            <p>No Reviews Yet</p>
         </div>
     </article>
     {% endfor %}

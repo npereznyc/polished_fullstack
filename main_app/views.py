@@ -106,7 +106,7 @@ class CreateReview(CreateView):
 @method_decorator(login_required, name='dispatch')
 class UpdateReview(UpdateView):
     model = Review
-    fields = ['user', 'polish', 'brand', 'image', 'review']
+    fields = ['user', 'polish', 'brand', 'review']
     template_name = "update_review.html"
     success_url = "/reviews/"
 
@@ -117,6 +117,10 @@ class UpdateReview(UpdateView):
 class ReviewDetail(DetailView):
     model = Review
     template_name='review_detail.html'
+
+class AddSwatch(DetailView):
+    model = Review
+    template_name='add_photo.html'
 
 
 @method_decorator(login_required, name='dispatch')
