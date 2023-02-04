@@ -1,32 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block title %}Create Review{% endblock %}
 
 {% block content %}
-<h1>Add a Swatch & Review</h1>
-
-<form action="{% url 'add_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-    {{form.as_p}}
-
-    <input type="submit" value="Submit Review" />
-
-  </form>
+<h1>Add a Review</h1>
 
 <form method="post">
-  <!-- Security Feature  -->
-  {% csrf_token %}
-  <!--  Generate inputs  -->
-  {{form.as_p}}
-  <p>Upload your swatch below:</p>
-  <!--  Submit form  -->
-  
-
-  <input type="submit" value="Submit Review" />
+<!-- Security Feature  -->
+  {% csrf_token %} 
+<!--  Generate inputs  -->
+  {{form.as_p}} 
+<!--  Submit form  -->
+  <input type="submit" value="Submit" />
 </form>
-
-
 
 {% endblock %}

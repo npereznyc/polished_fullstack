@@ -16,6 +16,5 @@ urlpatterns = [
     path('accounts/signup/', views.Signup.as_view(), name="signup"),
     path('myreviews/', views.UserReviews.as_view(), name='my_reviews'),
 
-    # path('reviews/add_photo', views.add_photo, name='add_photo'),
-    path('reviews/add_photo', views.add_photo, name='add_photo'),
+    path('reviews/<int:review_id>/add_photo/', views.add_photo, name='add_photo'),
 ]

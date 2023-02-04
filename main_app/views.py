@@ -4,13 +4,15 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from .models import Brand, Polish, Review
+from .models import Brand, Polish, Review, Photo
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import forms
+
 import os
 import uuid
 import boto3
@@ -82,7 +84,6 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
 
     def get_queryset(self):
         user_reviews=Review.objects.filter(user=self.request.user)
-        print('user reviews: ', user_reviews)
         return Review.objects.filter(user=self.request.user)
         
 
@@ -92,7 +93,7 @@ class CreateReview(CreateView):
     model = Review
     fields = ['polish', 'brand', 'review']
     template_name = "create_review.html"
-    success_url = "/reviews/"
+    # success_url = "/reviews/"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -124,7 +125,7 @@ class DeleteReview(DeleteView):
     template_name='delete_review_conf.html'
     success_url = "/"
 
-def add_photo(request):
+def add_photo(request, review_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     print('photo file: ', photo_file)
@@ -141,8 +142,9 @@ def add_photo(request):
             print('url: ', url)
             # we can assign to cat_id or cat (if you have a cat object)
             # Review.objects.create(image=url)
-            Review(image=url).save()
-            return
+            Photo.objects.create(url=url, review_id=review_id)
+
         except:
             print('An error occurred uploading file to S3')
     return redirect('my_reviews')
+
