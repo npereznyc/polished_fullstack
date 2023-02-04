@@ -19,8 +19,12 @@
         </figure>
       </div>
       <footer class="card-footer">
-        <a href="#" class="card-footer-item">Save to Favorites</a>
-      </footer>
+        {% if user.is_authenticated %}
+        <a href="{% url 'add_favorite' polish.pk%}" class="card-footer-item">Save to Favorites</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="card-footer-item">Save to Favorites</a>
+        {%endif%}
+    </footer>
     </div>
   </a>
 	{% empty %}

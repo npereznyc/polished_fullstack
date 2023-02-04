@@ -155,8 +155,7 @@ def add_photo(request, review_id):
 @ login_required
 def add_favorite(request, id):
     polish = get_object_or_404(Polish, id=id)
-    print('user: ', request.user.pk)
-    
+    print('user: ', request.user.pk)    
     if polish.favorites.filter(id=request.user.id).exists():
         polish.favorites.remove(request.user.pk)
         print('remove ', polish.favorites)

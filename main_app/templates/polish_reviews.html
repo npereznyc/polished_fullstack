@@ -28,11 +28,13 @@
                     {{review.review}}
                 </div>
             </div>
-            {% if user.is_authenticated %}
             <footer class="card-footer">
-                <a href="{% url 'add_favorite' polish.id%}" class="card-footer-item">Save to Favorites</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'add_favorite' review.polish.pk%}" class="card-footer-item">Save to Favorites</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="card-footer-item">Save to Favorites</a>
+                {%endif%}
             </footer>
-            {%endif%}
         </div>
     </a>
     {% empty %}
