@@ -1,11 +1,7 @@
-
-
-
-
 {% extends 'base.html' %}
 
 {% comment %} for head title tags and helping us with SEO {% endcomment %}
-{% block title %}All Reviews{% endblock  %}
+{% block title %}All Reviews{% endblock %}
 
 {% block content %}
 
@@ -16,32 +12,36 @@
   {% for review in review_list %}
   <a href="{% url 'review_detail' review.pk %}">
     <div class="card">
-        <div class="card-header">
-            <p class="card-header-title">{{review.polish}} by {{review.brand}}</p>
-          </div>
+      <div class="card-header">
+        <p class="card-header-title">{{review.polish}} by {{review.brand}}</p>
+      </div>
       <div class="card-image">
         <figure class="image is-square">
-          <img src="{{review.image}}" alt="{{review.polish}}" />
+          {% for photo in review.photo_set.all %}
+          <img src="{{photo.url}}" alt="{{photo.review}}" />
+          {% empty %}
+          <div>No Photos Uploaded</div>
+          {% endfor %}
         </figure>
       </div>
       <div class="card-content">
         <div class="content">
-     {{review.review}}
-      </div>
+          {{review.review}}
+        </div>
       </div>
       <footer class="card-footer">
         <a href="#" class="card-footer-item">Save to Favorites</a>
       </footer>
-    </div> 
     </div>
-  </a>
-  {% endfor %}
+</div>
+</a>
+{% endfor %}
 {% else %}
-  <article class="message">
-    <div class="message-header">
-      <p>You haven't written any reviews</p>
-    </div>
-  </article>
+<article class="message">
+  <div class="message-header">
+    <p>You haven't written any reviews</p>
+  </div>
+</article>
 </div>
 {% endif %}
 

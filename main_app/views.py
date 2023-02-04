@@ -4,14 +4,18 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from .models import Brand, Polish, Review
+from .models import Brand, Polish, Review, Photo
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import forms
+
 import os
+import uuid
+import boto3
 
 
 
@@ -80,7 +84,6 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
 
     def get_queryset(self):
         user_reviews=Review.objects.filter(user=self.request.user)
-        print('user reviews: ', user_reviews)
         return Review.objects.filter(user=self.request.user)
         
 
@@ -88,9 +91,9 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
 @method_decorator(login_required, name='dispatch')
 class CreateReview(CreateView):
     model = Review
-    fields = ['user', 'polish', 'brand', 'image', 'review']
+    fields = ['polish', 'brand', 'review']
     template_name = "create_review.html"
-    success_url = "/reviews/"
+    # success_url = "/reviews/"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -103,7 +106,7 @@ class CreateReview(CreateView):
 @method_decorator(login_required, name='dispatch')
 class UpdateReview(UpdateView):
     model = Review
-    fields = ['user', 'polish', 'brand', 'image', 'review']
+    fields = ['user', 'polish', 'brand', 'review']
     template_name = "update_review.html"
     success_url = "/reviews/"
 
@@ -115,9 +118,37 @@ class ReviewDetail(DetailView):
     model = Review
     template_name='review_detail.html'
 
+class AddSwatch(DetailView):
+    model = Review
+    template_name='add_photo.html'
+
 
 @method_decorator(login_required, name='dispatch')
 class DeleteReview(DeleteView):
     model = Review
     template_name='delete_review_conf.html'
     success_url = "/"
+
+def add_photo(request, review_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    print('photo file: ', photo_file)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['AWS_STORAGE_BUCKET_NAME']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['BASE_URL']}/{key}"
+            print('url: ', url)
+            # we can assign to cat_id or cat (if you have a cat object)
+            # Review.objects.create(image=url)
+            Photo.objects.create(url=url, review_id=review_id)
+
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('my_reviews')
+

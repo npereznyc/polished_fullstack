@@ -7,7 +7,11 @@
     <h1 class="title">{{review.user}}'s {{review.polish}} Review</h1>
 </div>
 <div class="detail__img">
-    <img src="{{review.image}}" alt="{{review.polish}}" />
+    {% for photo in review.photo_set.all %}
+    <img src="{{photo.url}}" alt="{{photo.review}}" />
+    {% empty %}
+      <div>No Swatch Added</div>
+    {% endfor %}
 </div>
 
 <div class="detail__container">
