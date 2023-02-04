@@ -164,14 +164,6 @@ def add_favorite(request, id):
         polish.favorites.add(request.user.pk)
         print('add: ', polish.favorites)
     return redirect('favorites_list')
-    # return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-# class UserFavorites(LoginRequiredMixin,generic.ListView):
-#     model = Favorite
-#     template_name = 'user_favorites.html'
-
-#     def get_queryset(self):
-#         return Favorite.objects.filter(user=self.request.user)
 
 @login_required
 def favorites_list(request):

@@ -18,9 +18,11 @@
           <img src="{{polish.image}}" alt="{{polish.name}}" />
         </figure>
       </div>
+      {% if user.is_authenticated %}
       <footer class="card-footer">
         <a href="{% url 'add_favorite' polish.id%}" class="card-footer-item">Save to Favorites</a>
       </footer>
+      {%endif%}
 
     </div>
   </a>
