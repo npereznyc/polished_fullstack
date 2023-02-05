@@ -13,6 +13,7 @@ boto3 = "*"
 django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 
