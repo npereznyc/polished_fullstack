@@ -1,6 +1,6 @@
 body {
 
-    background: linear-gradient(-45deg, #be5aec, #733cd2, #3a79de, #2dc3de);
+    background: linear-gradient(-45deg, #be5aec, #733cd2, #3a79de);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100%;
@@ -18,7 +18,7 @@ h3 {
 }
 
 .navbar {
-    background-color:#e9dbf0;
+    background-color:#e8dbee;
 }
 
 .title {
