@@ -53,6 +53,9 @@ class BrandList(TemplateView):
             context['header'] = 'Popular Brands'
         return context
 
+    
+    
+
 class BrandDetail(DetailView):
     model = Brand
     template_name = 'brand_detail.html'
@@ -63,8 +66,18 @@ class PolishList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['polishes'] = Polish.objects.all()
+        print('context: ', context)
+        name  = self.request.GET.get('name')
+        if name != None:
+            context['polishes'] = Polish.objects.filter(name__icontains=name)
+            print(name)
+            context['header'] = f'Searching for {name}'
+        else:
+            context['polishes'] = Polish.objects.all()
+            context['header'] = 'Popular Polishes'
         return context
+    
+    
 
 class PolishReviews(DetailView):
     model = Polish

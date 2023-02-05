@@ -5,7 +5,19 @@
 
 {% block content %}
 
-<h1 class="title pt-5">Popular Polishes</h1>
+<form class="mb-5" method="get">
+  <div class="field has-addons">
+    <div class="control">
+      <input class="input" type="text" name="name" placeholder="search by polish name" />
+    </div>
+    <div class="control">
+      <input class="button is-light" type="submit" value="Search" />
+    </div>
+  </div>
+  <a class="button is-light" href="{% url 'polish_list' %}">Clear Search</a>
+</form>
+
+<h1 class="title pt-5">{{header}}</h1>
 <div class="gallery">
   {% for polish in polishes %}
   <a href="{% url 'polish_reviews' polish.pk %}">
