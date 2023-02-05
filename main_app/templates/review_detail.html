@@ -3,37 +3,45 @@
 {% block title %} {{review.polish}} {% endblock %}
 
 {% block content %}
-<div class="detail__name">
-    <h1 class="title">{{review.user}}'s {{review.polish}} Review</h1>
-</div>
-<div class="detail__img">
-    {% for photo in review.photo_set.all %}
-    <img src="{{photo.url}}" alt="{{photo.review}}" />
-    {% empty %}
-    <div>No Swatch Added</div>
-    {% endfor %}
+
+<h1 class="title">{{review.user}}'s {{review.polish}} Review</h1>
+
+<a class="button is-light" href="{% url 'add_favorite' review.polish.pk%}">Add polish to Favorites</a>
+
+<div class="review_container">
+    <div class="image">
+        {% for photo in review.photo_set.all %}
+        <img src="{{photo.url}}" alt="{{photo.review}}" />
+        {% empty %}
+        <div>No Swatch Added</div>
+        {% endfor %}
+    </div>
+    <div class="review_text">
+        <p class="title is-5">{{review.review}}</p>
+        <div class="detail_buttons">
+            {% if review.user == user %}
+            <div class="buttons">
+                <a href="{% url 'update_review' review.pk %}" class="button is-info">
+                    <span class="icon">
+                        <i class="fas fa-edit"></i>
+                    </span>
+                </a>
+                <a href="{% url 'delete_review' review.pk %}" class="button is-danger">
+                    <span class="icon">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                </a>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+
 </div>
 
-<div class="detail__container">
-    {% if review.user == user %}
-    <div class="buttons">
-        <a href="{% url 'update_review' review.pk %}" class="button is-info">
-            <span class="icon">
-                <i class="fas fa-edit"></i>
-            </span>
-        </a>
-        <a href="{% url 'delete_review' review.pk %}" class="button is-danger">
-            <span class="icon">
-                <i class="fas fa-trash-alt"></i>
-            </span>
-        </a>
-    </div>
-    {%endif%}
-    <a class="button is-dark" href="{% url 'add_favorite' review.polish.pk%}">Add to Favorites</a>
 
-    <div class="detail__review">
-        <h5 class="title is-5">{{review.review}}</h5>
-    </div>
+
+
+
 </div>
 
 {% endblock %}

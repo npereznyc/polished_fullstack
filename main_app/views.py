@@ -12,6 +12,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout
+
+
 
 import os
 import uuid
@@ -108,20 +112,32 @@ class CreateReview(CreateView):
     template_name = "create_review.html"
     # success_url = "/reviews/"
 
+    def get_form(self, form_class=None):
+       form = super().get_form(form_class)
+       form.helper = FormHelper()
+       form.helper.add_input(Submit('submit', 'Create', css_class='btn-primary'))
+       return form
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CreateReview, self).form_valid(form)
 
     def get_success_url(self):
         print(self.kwargs)
-        return reverse('review_detail', kwargs={'pk': self.object.pk})
+        return reverse('add_swatch', kwargs={'pk': self.object.pk})
 
 @method_decorator(login_required, name='dispatch')
 class UpdateReview(UpdateView):
     model = Review
-    fields = ['user', 'polish', 'brand', 'review']
+    fields = ['review']
     template_name = "update_review.html"
-    success_url = "/reviews/"
+    success_url = "/myreviews/"
+
+    def get_form(self, form_class=None):
+       form = super().get_form(form_class)
+       form.helper = FormHelper()
+       form.helper.add_input(Submit('submit', 'Create', css_class='btn-primary'))
+       return form
 
     def get_success_url(self):
         return reverse('review_detail', kwargs={'pk': self.object.pk})
@@ -140,7 +156,7 @@ class AddSwatch(DetailView):
 class DeleteReview(DeleteView):
     model = Review
     template_name='delete_review_conf.html'
-    success_url = "/"
+    success_url = "/myreviews/"
 
 def add_photo(request, review_id):
     # photo-file will be the "name" attribute on the <input type="file">

@@ -1,13 +1,18 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %} Update Review {% endblock %}
 
 
 {% block content %}
-<h1 class="pt-3">Update {{review.polish}}</h1>
+<h1 class=" title pt-3">Update your {{review.polish}} review</h1>
+
+{% load crispy_forms_tags %}
 
 <form action="" method="post">
-  {% csrf_token %} {{form.as_p}} <input type="submit" value="Submit" />
+  {% csrf_token %}
+  {{ form|crispy }}
+
+  <input type="submit" value="Submit" />
 </form>
 
 {% endblock %}

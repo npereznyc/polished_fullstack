@@ -1,19 +1,24 @@
 body {
-    /* background-color: #AEB8FE; */
-    /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
-    background: linear-gradient(-45deg, #ec5a5a, #ee47b3, #3a79de, #2dc3de);
+
+    background: linear-gradient(-45deg, #be5aec, #733cd2, #3a79de, #2dc3de);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100%;
     color: #330248;
     min-height: 100vh;
     margin-top: 30px;
+    padding-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 h1,
 h2,
 h3 {
-    color: #530e8b;
+    color: #ffffff;
+}
+
+.navbar {
+    background-color:#e9dbf0;
 }
 
 .title {
@@ -34,6 +39,25 @@ h3 {
 .gallery .card:hover {
     transform: scale(1.1);
     z-index: 10;
+}
+
+.review_container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.image {
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.review_text {
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+.detail_buttons {
+    align-self: flex-end;
 }
 
 p {

@@ -2,15 +2,16 @@
 {% block title %}Create Review{% endblock %}
 
 {% block content %}
-<h1>Add a Review</h1>
+<h1 class="title pt-5">Add a Review</h1>
 
-<form method="post">
+{% load crispy_forms_tags %}
+<form method="post" class="my-class">
 <!-- Security Feature  -->
   {% csrf_token %} 
 <!--  Generate inputs  -->
-  {{form.as_p}} 
+  {{ form|crispy  }} 
 <!--  Submit form  -->
-  <input type="submit" value="Submit" />
+  <input class="button is-light" type="submit" value="Submit" />
 </form>
 
 {% endblock %}
