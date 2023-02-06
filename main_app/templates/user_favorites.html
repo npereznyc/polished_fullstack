@@ -6,32 +6,30 @@
 {% block content %}
 
 <h1 class="title pt-5">{{user}}'s Favorites</h1>
-<!-- <a class="button is-dark" href="{% url 'create_review' %}">Add A Review!</a> -->
 <div class="gallery">
   {% for polish in favorite %}
   <a href="{% url 'polish_reviews' polish.pk %}">
     <div class="card">
-        <div class="card-header">
-          <p class="card-header-title">{{polish.name}} by {{polish.brand}}</p>
-        </div>
-        <div class="card-image">
-          <figure class="image is-square">
-            <img src="{{polish.image}}" alt="{{polish.name}}" />
-          </figure>
-        </div>
-      
+      <div class="card-header">
+        <p class="card-header-title">{{polish.name}} by {{polish.brand}}</p>
+      </div>
+      <div class="card-image">
+        <figure class="image is-square">
+          <img src="{{polish.image}}" alt="{{polish.name}}" />
+        </figure>
+      </div>
       <footer class="card-footer">
         <a href="{% url 'add_favorite' polish.id %}" class="card-footer-item">Remove from Favorites</a>
       </footer>
     </div>
-</a>
-{% empty %}
-<article class="message">
-  <div class="message-header">
-    <p>You haven't saved any polishes to your favorites.</p>
-  </div>
-</article>
-{% endfor %}
+  </a>
+  {% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>You haven't saved any polishes to your favorites.</p>
+    </div>
+  </article>
+  {% endfor %}
 </div>
 
 {% endblock %}

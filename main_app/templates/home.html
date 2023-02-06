@@ -14,17 +14,13 @@
   <a class="button is-light" href="{% url 'home' %}">Clear Search</a>
 </form>
 
-<h5 class="title has-text-centered">Welcome to Polished! <br /> Search for a brand above or choose a brand below to begin exploring.</h5>
+<h5 class="title has-text-centered">Welcome to Polished! <br /> Search for a brand above or choose a brand below to
+  begin exploring.</h5>
 <h1 class="title pt-5">{{header}}:</h1>
 <div class="gallery">
   {% for brand in brands %}
   <a href="{% url 'brand_detail' brand.pk %}">
     <div class="card">
-      <div class="card-image">
-        <!-- <figure class="image is-square">
-          <img src="{{brand.image}}" alt="{{brand.name}}" />
-        </figure> -->
-      </div>
       <div class="card-header">
         <p class="card-header-title">{{brand.name}}</p>
       </div>

@@ -14,13 +14,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
-
-
-
 import os
 import uuid
 import boto3
-
 
 
 # Create your views here.
@@ -40,8 +36,10 @@ class Signup(View):
             context = {'form': form}
             return render(request, 'registration/signup.html', context)
 
+
 class About(TemplateView):
     template_name = 'about.html'
+
 
 class BrandList(TemplateView):
     template_name = 'home.html'
@@ -57,8 +55,6 @@ class BrandList(TemplateView):
             context['header'] = 'Popular Brands'
         return context
 
-    
-    
 
 class BrandDetail(DetailView):
     model = Brand
@@ -81,11 +77,11 @@ class PolishList(TemplateView):
             context['header'] = 'Popular Polishes'
         return context
     
-    
 
 class PolishReviews(DetailView):
     model = Polish
     template_name='polish_reviews.html'
+
 
 class ReviewList(TemplateView):
     template_name = 'review_list.html'
@@ -100,17 +96,14 @@ class UserReviews(LoginRequiredMixin,generic.ListView):
     template_name = 'user_reviews.html'
 
     def get_queryset(self):
-        # user_reviews=Review.objects.filter(user=self.request.user)
         return Review.objects.filter(user=self.request.user)
         
-
 
 @method_decorator(login_required, name='dispatch')
 class CreateReview(CreateView):
     model = Review
     fields = ['polish', 'brand', 'review']
     template_name = "create_review.html"
-    # success_url = "/reviews/"
 
     def get_form(self, form_class=None):
        form = super().get_form(form_class)
@@ -125,6 +118,7 @@ class CreateReview(CreateView):
     def get_success_url(self):
         print(self.kwargs)
         return reverse('add_swatch', kwargs={'pk': self.object.pk})
+
 
 @method_decorator(login_required, name='dispatch')
 class UpdateReview(UpdateView):
@@ -147,6 +141,7 @@ class ReviewDetail(DetailView):
     model = Review
     template_name='review_detail.html'
 
+
 class AddSwatch(DetailView):
     model = Review
     template_name='add_photo.html'
@@ -158,40 +153,33 @@ class DeleteReview(DeleteView):
     template_name='delete_review_conf.html'
     success_url = "/myreviews/"
 
+
 def add_photo(request, review_id):
-    # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     print('photo file: ', photo_file)
     if photo_file:
         s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
         try:
             bucket = os.environ['AWS_STORAGE_BUCKET_NAME']
             s3.upload_fileobj(photo_file, bucket, key)
-            # build the full url string
+            # building the full url string:
             url = f"{os.environ['BASE_URL']}/{key}"
-            print('url: ', url)
-            # we can assign to cat_id or cat (if you have a cat object)
-            # Review.objects.create(image=url)
             Photo.objects.create(url=url, review_id=review_id)
-
         except:
             print('An error occurred uploading file to S3')
     return redirect('my_reviews')
 
+
 @ login_required
 def add_favorite(request, id):
     polish = get_object_or_404(Polish, id=id)
-    print('user: ', request.user.pk)    
     if polish.favorites.filter(id=request.user.id).exists():
         polish.favorites.remove(request.user.pk)
-        print('remove ', polish.favorites)
     else:
         polish.favorites.add(request.user.pk)
-        print('add: ', polish.favorites)
     return redirect('favorites_list')
+
 
 @login_required
 def favorites_list(request):

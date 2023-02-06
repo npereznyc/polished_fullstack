@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}Create Review{% endblock %}
 
 {% block content %}
@@ -6,11 +6,8 @@
 
 {% load crispy_forms_tags %}
 <form method="post" class="my-class">
-<!-- Security Feature  -->
-  {% csrf_token %} 
-<!--  Generate inputs  -->
-  {{ form|crispy  }} 
-<!--  Submit form  -->
+  {% csrf_token %}
+  {{ form|crispy }}
   <input class="button is-light" type="submit" value="Submit" />
 </form>
 

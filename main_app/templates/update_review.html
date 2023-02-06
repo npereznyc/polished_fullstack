@@ -7,11 +7,9 @@
 <h1 class=" title pt-3">Update your {{review.polish}} review</h1>
 
 {% load crispy_forms_tags %}
-
 <form action="" method="post">
   {% csrf_token %}
   {{ form|crispy }}
-
   <input type="submit" value="Submit" />
 </form>
 

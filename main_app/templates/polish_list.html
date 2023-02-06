@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-{% comment %} for head title tags and helping us with SEO {% endcomment %}
 {% block title %}Polishes{% endblock %}
 
 {% block content %}
@@ -16,7 +15,6 @@
   </div>
   <a class="button is-light" href="{% url 'polish_list' %}">Clear Search</a>
 </form>
-
 <h1 class="title pt-5">{{header}}</h1>
 <div class="gallery">
   {% for polish in polishes %}
@@ -37,7 +35,6 @@
         <a href="{% url 'login' %}" class="card-footer-item">Save to Favorites</a>
         {%endif%}
       </footer>
-
     </div>
   </a>
   {% empty %}

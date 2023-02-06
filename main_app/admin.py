@@ -17,7 +17,3 @@ admin.site.register(Brand, BrandAdmin)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('id', 'url', 'review')
 admin.site.register(Photo, PhotoAdmin)
-
-# class FavoriteAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'user', 'polish', 'brand')
-# admin.site.register(Favorite, FavoriteAdmin)

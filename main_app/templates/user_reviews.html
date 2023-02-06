@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-{% comment %} for head title tags and helping us with SEO {% endcomment %}
 {% block title %}All Reviews{% endblock %}
 
 {% block content %}
@@ -37,14 +36,14 @@
         {%endif%}
       </footer>
     </div>
-</a>
-{% endfor %}
-{% else %}
-<article class="message">
-  <div class="message-header">
-    <p>You haven't written any reviews</p>
-  </div>
-</article>
-{% endif %}
+  </a>
+  {% endfor %}
+  {% else %}
+  <article class="message">
+    <div class="message-header">
+      <p>You haven't written any reviews</p>
+    </div>
+  </article>
+  {% endif %}
 </div>
 {% endblock %}

@@ -21,7 +21,6 @@
           {% empty %}
           <div>No Photos Uploaded</div>
           {% endfor %}
-
         </figure>
       </div>
       <div class="card-content">
@@ -37,14 +36,13 @@
         {%endif%}
       </footer>
     </div>
-
-</a>
-{% empty %}
-<article class="message">
-  <div class="message-header">
-    <p>No Reviews Yet</p>
-  </div>
-</article>
-{% endfor %}
+  </a>
+  {% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Reviews Yet</p>
+    </div>
+  </article>
+  {% endfor %}
 </div>
 {% endblock %}
