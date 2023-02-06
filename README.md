@@ -13,7 +13,7 @@ Polished creates a space where anyone can share their images of their nails so t
 ## Site Images:
 ![homepage](https://i.imgur.com/69szRHn.png)
 ![polishes](https://i.imgur.com/ODusMnR.png)
-![reviews](blob:https://imgur.com/412f89df-f209-46ee-9391-27daf18af340)
+![reviews](https://imgur.com/uSUNDmT.png)
 
 ## Technologies Used:
 - Python
