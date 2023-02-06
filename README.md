@@ -10,6 +10,11 @@ Polished creates a space where anyone can share their images of their nails so t
 
 <br>
 
+## Site Images:
+![homepage](https://i.imgur.com/69szRHn.png)
+![polishes](https://i.imgur.com/ODusMnR.png)
+![reviews](https://imgur.com/uSUNDmT.png)
+
 ## Technologies Used:
 - Python
 - Django
@@ -49,6 +54,7 @@ Using Polished is easy; simply load the [deployed site](https://polishedapp.hero
 ## Usolved Problems:
 - "Save to Favorites" still appears on polishes even if you've already saved them to your favorites; clicking it removes the polish from your liset.
 - I'd like to streamline the review creation process so that you can upload a swatch at the same time as you create your review.
+- Mobile responsiveness is not where I'd like it to be.
 
 <br>
 
