@@ -70,7 +70,6 @@ class PolishList(TemplateView):
         name  = self.request.GET.get('name')
         if name != None:
             context['polishes'] = Polish.objects.filter(name__icontains=name)
-            print(name)
             context['header'] = f'Searching for {name}'
         else:
             context['polishes'] = Polish.objects.all()

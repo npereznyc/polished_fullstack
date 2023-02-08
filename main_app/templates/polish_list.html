@@ -3,7 +3,6 @@
 {% block title %}Polishes{% endblock %}
 
 {% block content %}
-
 <form class="mb-5" method="get">
   <div class="field has-addons">
     <div class="control">
@@ -31,13 +30,17 @@
       <footer class="card-footer">
         {% if user.is_authenticated %}
         <a href="{% url 'add_favorite' polish.id%}" class="card-footer-item">Save to Favorites</a>
+        <!-- the conditional below is not working as intended. it will change the footer on all cards but not on the specific cards wanted. -->
+        {% elif polish.favorites %} 
+        <a href="{% url 'add_favorite' polish.id%}" class="card-footer-item">Remove from Favorites</a>
         {% else %}
-        <a href="{% url 'login' %}" class="card-footer-item">Save to Favorites</a>
+        <a href="{% url 'login' %}" class="card-footer-item">Save to Favorites</a> 
         {%endif%}
       </footer>
     </div>
   </a>
   {% empty %}
+  
   <article class="message">
     <div class="message-header">
       <p>No Polishes Available</p>
