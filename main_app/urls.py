@@ -19,7 +19,7 @@ urlpatterns = [
     path('reviews/<int:pk>/delete/', views.DeleteReview.as_view(), name='delete_review'),
     path('myreviews/', views.UserReviews.as_view(), name='my_reviews'),
 
-    path('accounts/signup/', views.Signup.as_view(), name="signup"),
+    # path('accounts/signup/', views.Signup.as_view(), name="signup"),
 
     path('favorites/<int:id>/', views.add_favorite, name='add_favorite'),
     path('myfavorites/', views.favorites_list, name='favorites_list'),
