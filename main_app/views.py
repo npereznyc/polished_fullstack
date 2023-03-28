@@ -11,9 +11,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordResetView
-from django.contrib.auth.views import PasswordResetConfirmView
-from django.contrib.auth.views import PasswordChangeView
+# from django.contrib.auth.views import PasswordResetView
+# from django.contrib.auth.views import PasswordResetConfirmView
+# from django.contrib.auth.views import PasswordChangeView
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
@@ -188,16 +188,16 @@ def favorites_list(request):
     favorite=Polish.objects.filter(favorites=request.user.pk)
     return render(request, 'user_favorites.html', {'favorite' : favorite})
 
-class MyPasswordResetView(PasswordResetView):
-    template_name = 'password_reset_form.html'
-    email_template_name = 'password_reset_email.html'
-    subject_template_name = 'password_reset_subject.txt'
-    success_url = reverse_lazy('password_reset_done')
+# class MyPasswordResetView(PasswordResetView):
+#     template_name = 'password_reset_form.html'
+#     email_template_name = 'password_reset_email.html'
+#     subject_template_name = 'password_reset_subject.txt'
+#     success_url = reverse_lazy('password_reset_done')
 
-class MyPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'password_reset_confirm.html'
-    success_url = reverse_lazy('password_reset_complete')
+# class MyPasswordResetConfirmView(PasswordResetConfirmView):
+#     template_name = 'password_reset_confirm.html'
+#     success_url = reverse_lazy('password_reset_complete')
 
-class MyPasswordChangeView(PasswordChangeView):
-    template_name = 'password_change_form.html'
-    success_url = reverse_lazy('password_change_done')
+# class MyPasswordChangeView(PasswordChangeView):
+#     template_name = 'password_change_form.html'
+#     success_url = reverse_lazy('password_change_done')

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Brand(models.Model):
@@ -16,7 +16,7 @@ class Polish(models.Model):
     name = models.CharField(max_length=100)
     image = models.CharField(max_length=400, default="https://www.dictionary.com/e/wp-content/uploads/2018/02/nail-polish-light-skin-tone.png")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='polishes')
-    favorites = models.ManyToManyField(User, related_name='favorite', default=None, blank=True)
+    favorites = models.ManyToManyField(get_user_model(), related_name='favorite', default=None, blank=True)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Polish(models.Model):
         ordering = ['brand', 'name']
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name='reviews')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1, related_name='reviews')
     polish = models.ForeignKey(Polish, on_delete=models.PROTECT, related_name='reviews')
     brand = models.ForeignKey(Brand, on_delete=models.PROTECT, related_name='reviews')
     review =  models.TextField()
