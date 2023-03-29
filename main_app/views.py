@@ -23,21 +23,21 @@ import boto3
 
 
 # Create your views here.
-class Signup(View):
-    def get(self, request):
-        form = UserCreationForm()
-        context = {'form': form}
-        return render(request, 'registration/signup.html', context)
+# class Signup(View):
+#     def get(self, request):
+#         form = UserCreationForm()
+#         context = {'form': form}
+#         return render(request, 'registration/signup.html', context)
     
-    def post(self, request):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-        else:
-            context = {'form': form}
-            return render(request, 'registration/signup.html', context)
+#     def post(self, request):
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             context = {'form': form}
+#             return render(request, 'registration/signup.html', context)
 
 
 class About(TemplateView):
@@ -189,15 +189,7 @@ def favorites_list(request):
     return render(request, 'user_favorites.html', {'favorite' : favorite})
 
 # class MyPasswordResetView(PasswordResetView):
-#     template_name = 'password_reset_form.html'
+#     template_name = 'accounts/password_reset_form.html'
 #     email_template_name = 'password_reset_email.html'
 #     subject_template_name = 'password_reset_subject.txt'
 #     success_url = reverse_lazy('password_reset_done')
-
-# class MyPasswordResetConfirmView(PasswordResetConfirmView):
-#     template_name = 'password_reset_confirm.html'
-#     success_url = reverse_lazy('password_reset_complete')
-
-# class MyPasswordChangeView(PasswordChangeView):
-#     template_name = 'password_change_form.html'
-#     success_url = reverse_lazy('password_change_done')

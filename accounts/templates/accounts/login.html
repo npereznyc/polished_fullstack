@@ -8,9 +8,9 @@
     <input type="submit" class="btn" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
-<!-- <br />
-<p>Forgot your password? Please click the following link to reset your password:</p>
-<p><a href="{{ password_reset_url }}">Reset Password</a></p> -->
+<br />
+
+<p><a href="{% url 'password-reset' %}">Forgot your password?</a></p>
 
 <br />
 <h4>Don't have an account? Sign up <a href="{% url 'register' %}">here</a>!</h4>

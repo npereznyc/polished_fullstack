@@ -24,6 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -34,8 +37,7 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 S3_BASE_URL= env('BASE_URL')
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
