@@ -12,7 +12,7 @@
   <a href="{% url 'review_detail' review.pk %}">
     <div class="card">
       <div class="card-header">
-        <p class="card-header-title">{{review.polish}} by {{review.brand}}</p>
+        <p class="card-header-title">{{user.username}}'s review of {{review.polish}} by {{review.brand}}</p>
       </div>
       <div class="card-image">
         <figure class="image is-square">

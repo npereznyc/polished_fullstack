@@ -1,18 +1,22 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
 
 <h1 class="title">Log In</h1>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" class="btn" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
-<br />
+<div class="card shadow-lg border-0 rounded-lg mt-0 mb-3">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %} {{ form.as_p }}
+        <input class="my-4" type="submit" class="btn" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <br />
 
-<p><a href="{% url 'password-reset' %}">Forgot your password?</a></p>
+    <pm><a href="{% url 'password-reset' %}">Forgot your password?</a></p>
 
-<br />
-<h4>Don't have an account? Sign up <a href="{% url 'register' %}">here</a>!</h4>
+        <br />
+        <h4>Don't have an account? Sign up <a href="{% url 'register' %}">here</a>!</h4>
+
+</div>
+
 
 {% endblock %}
