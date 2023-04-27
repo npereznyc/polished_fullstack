@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1 class="title pt-5">{{user}}'s Reviews & Swatches</h1>
+<h1 class="title pt-5">{{user.username}}'s Reviews & Swatches</h1>
 <a class="button is-light" href="{% url 'create_review' %}">Add A Review!</a>
 {% if review_list %}
 <div class="gallery">
